@@ -1,0 +1,124 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script>
+            function validateSelection() {
+                if (document.getElementById('option4').checked) {
+                    localStorage.setItem("quant",1);
+                }
+                else{
+                    localStorage.setItem("quant",0);
+                }
+                var mathObj = document.myform.math
+                var len = mathObj.length
+                var chosen = null;
+
+                for (i = 0; i <len; i++) {
+                    if (mathObj[i].checked) {
+                     chosen = mathObj[i].value
+                 }
+             }
+
+             if (chosen == null) {
+                localStorage.setItem("quantAttempt",0);
+            }
+            else{
+                localStorage.setItem("quantAttempt",1);
+            }
+        }
+        function reset_Selection() {
+            localStorage.setItem("quantAttempt",0);
+            localStorage.setItem("quant",0);
+             var mathObj = document.myform.math
+             var len = mathObj.length
+             var chosen = null;
+             for (i = 0; i <len; i++) {
+                mathObj[i].checked=false;
+            }
+    }
+</script>
+</head>
+<body>
+    <header>
+        <hgroup>
+          <h2>Quantitative Section</h2>
+      </hgroup>
+  </header><br>
+  <div id="rcorners3">
+    <h3 align="center">Question 1</h3>
+    <h5 align="left">Given points (x1,y1) and (x2,y2) select the formula to find the equation of given line</h5>
+    <form name="myform" action="Cosine.html" onsubmit="return validateSelection()">
+        <div id="wrapper">
+           <div class="float left" id="math">
+              <input type="radio" name="math" id="option1" value="1">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mrow>
+                <mi>y</mi>
+                <mo>=</mo>
+                <mfenced open="[" close="]">
+                 <mtable>
+                  <mtr>
+                   <mtd><mi>mx</mi></mtd>
+                   <mo>+</mo>
+                   <mtd><mi>b</mi></mtd>
+               </mtr>
+           </mtable>
+       </mfenced>
+   </mrow>
+</math>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="math" id="option2" value="2">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mrow>
+        <msup><mi>(x-h)</mi><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mi>(y-k)</mi><mn>2</mn></msup>
+        <mo>=</mo>
+        <msup><mi>r</mi><mn>2</mn></msup>
+    </mrow>
+</math>  
+<br><br>
+<input type="radio" name="math" id="option2" value="3"> 
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mrow>
+        <mi>(y-y1)</mi>
+        <mo>=</mo>
+        <mfenced open="[" close="]">
+         <mtable>
+          <mtr>
+           <mtd><mi>m(x</mi></mtd>
+           <mo>-</mo>
+           <mtd><mi>x1)</mi></mtd>
+       </mtr>
+   </mtable>
+</mfenced>
+</mrow>
+</math>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="math" id="option4"  value="4">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mrow>
+        <mi>(y-y1)</mi>
+        <mo>=</mo>
+        <mfrac>
+            <mi>(y2-y1)</mi>
+            <mi>(x2-x1)</mi>
+        </mfrac>
+        <mi>(x-x2)</mi>
+    </mrow>
+</math><br>
+</div>
+<div class="float right">
+    <img src="ques1.png" alt="Math" style="width:200px;height:228px;">
+</div>
+</div> 
+<div align="center">
+    <input type="submit" value="Submit & Next Question">&nbsp;&nbsp;&nbsp;&nbsp; 
+    <input type="button" value="Cancel & Clear Selection " onclick="reset_Selection()">
+</div>
+</form>
+</div><br>
+<footer id="mainFooter">
+  &#169;2016, Kalpana Tripathi.
+</footer>
+</body>
+</html>

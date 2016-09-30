@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+    window.onload = function() {
+    //alert("Video quant --> "+localStorage.getItem("quant"));
+    //alert("Video English --> "+localStorage.getItem("english"));
+    //alert("Video video --> "+localStorage.getItem("video"));
+  };
+  function validateSelection() {
+    if (document.getElementById('option1').checked) {
+      localStorage.setItem("video",1);
+    }
+    else{
+      localStorage.setItem("video",0);
+    }
+  }
+  function reset_Selection() {
+             var mathObj = document.myform.video
+             var len = mathObj.length
+             var chosen = null;
+             for (i = 0; i <len; i++) {
+                mathObj[i].checked=false;
+            }
+    }
+</script>
+</head>
+<body>
+  <header>
+    <hgroup>
+      <h2>Audio/Video Section</h2>
+    </hgroup>
+  </header>
+  <div id="rcorners5">
+  <h3 align="center">Question 4</h3>
+  <h5 align="left">Watch the video and answer the following question. What is the source as mentioned in the video?</h5>
+  <form name="myform" action="Survey.html" onsubmit="return validateSelection()"> 
+    <div id="wrapper">
+      <div class="float left">
+        <input type="radio" name="video" value="nasa" id="option1">NASA.Gov
+        &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="video" value="data" id="option2">Data.Gov
+        <br><br>
+        <input type="radio" name="video" value="facebook" id="option3">Facebook
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="video" value="xyz" id="option4">XYZ.net
+        <br><br>
+      </div>&nbsp;
+      <div class="float right">
+        <video width="390" height="340" autoplay poster="galaxy.png">
+          <source src="GalaxyEvolution_ipod_lg.m4v" type="video/ogg">
+            Your browser does not support the video tag.
+          </video>
+          <b>Expedition 40 Undocks Ending Mission</b><br>
+          <font size="2" color="black">Souce http://www.nasa.gov/multimedia/imagegallery/index.html</font>          
+       </div>
+      </div>
+       <div align="left">
+      <input type="submit" value="Submit & Next Question">&nbsp;&nbsp;&nbsp;&nbsp; 
+      <input type="button" value="Cancel & Clear Selection " onclick="reset_Selection()"><br>
+      </div>
+    </form>
+    </div>
+    <footer id="mainFooter">
+      &#169;2016, Kalpana Tripathi.
+    </footer>
+  </body>
+  </html>

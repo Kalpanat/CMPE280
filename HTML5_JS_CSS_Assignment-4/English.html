@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>English SCO</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+        function fill(option){
+            var idValue;
+            
+            if(option=='first'){
+                replaceMarked('firstBlank','answer');
+            }else{
+                replaceMarked('secondBlank','answerTwo');
+            }
+        }
+
+        function replaceMarked(idValue,ansName){
+
+            var ans=document.querySelector("input[name='"+ansName+"']:checked").getAttribute('data-option-value');
+            
+            var marked=document.getElementById(idValue).getAttribute('data-marked-value');
+            document.getElementById(idValue).setAttribute('data-marked-value',ans);
+            
+            document.getElementById(idValue).textContent=document.getElementById(idValue).getAttribute('data-marked-value');
+        }   
+
+        function addscore(nextPage){
+    try{
+        var current_url=window.location+'';
+        var parameters=current_url.split("?")[1];
+        console.log(parameters);
+        var correctAns=0;
+        var ans,ansTwo;
+        if(document.querySelector("input[name='answer']:checked")!=null){
+           ans=document.querySelector("input[name='answer']:checked").getAttribute('data-option-value');
+     //ansTwo=document.querySelector("input[name='answerTwo']:checked").getAttribute('data-option-value');
+ }else{
+    alert("Please select an answer for the first blank");
+    return false;
+}
+
+if(document.querySelector("input[name='answerTwo']:checked")!=null){
+
+    ansTwo=document.querySelector("input[name='answerTwo']:checked").getAttribute('data-option-value');
+}else{
+
+    alert("Please select an answer for the second blank");
+    return false;
+}   
+
+
+var url;
+if(ans=="$650" && ansTwo=="Twitter"){
+    localStorage.setItem("english",2);
+}else{
+    if(ans=="$650" && ansTwo != "Twitter"){
+        localStorage.setItem("english",1);
+        //correctAns++;
+    }else{
+        if(ansTwo=="Twitter" && ans != "$650"){
+            localStorage.setItem("english",1);
+            //correctAns++;
+        } else {
+            localStorage.setItem("english",0);
+           // correctAns=0
+        }
+    }
+}
+  
+   
+}catch(err){
+    console.log(err);
+}
+}
+
+function cancelAndClear(){
+    localStorage.setItem("quant",0);
+    if(document.querySelector("input[name='answer']:checked") != null ){
+     document.querySelector("input[name='answer']:checked").checked=false;
+     document.getElementById('firstBlank').textContent="$____"
+
+ }
+ if( document.querySelector("input[name='answerTwo']:checked")!= null){
+   document.querySelector("input[name='answerTwo']:checked").checked=false;
+   document.getElementById('secondBlank').textContent="_____"
+}
+}
+window.onload = function() {
+    //alert("Eng quant --> "+localStorage.getItem("quant"));
+    //alert("Eng English --> "+localStorage.getItem("english"));
+};
+</script>
+</head>
+
+
+<body>
+<header>
+    <hgroup>
+      <h2>Reading Section</h2>
+  </hgroup>
+</header>
+<div id="rcorners4">
+    <form action="Video.html" onsubmit="addscore('Video.html')">  
+        <div class="mathFormat">
+            <h3 align="center">Question 3</h3>
+            <div class="paddingLeft">
+                <div class="alignEnglishInput">
+                    <p>
+                        <article class="indent">
+                            <section>
+                                As per the latest twitter news, complete the article snippet given by selecting appropriate choices for the blanks.
+                            </section>
+
+                            <section>
+                                "<br>
+                                Twitter wants more cash. The company announced two <span style="background: yellow" data-marked-value="$____" id='firstBlank'>$____</span> million debt offerings in a filling today, each with a potential $100 increase provided that the sales are oversubscribed. Assuming full tip, including the $100 million boosters <span style="background:yellow" id='secondBlank'>_____</span> will raise up to $1.5 billion with the two offerings.
+                                <br>"
+                                <br>
+                                Source: http://techcrunch.com/2014/09/10/twitter-to-raise-up-to-1-5b-in-debt-offering/
+                            </section>
+                        </article>
+                    </p>
+                </div>
+                <div class="alignEnglishInput">
+                    <p><input type="radio" name="answer" data-option-value="$650" onclick="fill('first')"/> Option 1 Mark 1: $650</p>
+                    <p><input type="radio" name="answer" data-option-value="$550" onclick="fill('first')"/> Option 2 Mark 1: $550</p>
+                    <p><input type="radio" name="answer" data-option-value="$650" onclick="fill('first')"/> Option 3 Mark 1: $650</p>
+                    <p><input type="radio" name="answerTwo" data-option-value="Twitter" onclick="fill('second')" /> Option 1 Mark 2: Twitter </p>
+                    <p><input type="radio" name="answerTwo" data-option-value="Google" onclick="fill('second')"/> Option 1 Mark 2: Google  </p>
+                    <p><input type="radio" name="answerTwo" data-option-value="Facebook" onclick="fill('second')" /> Option 1 Mark 2: Facebook </p>
+                </div>
+                <div align="center">
+                   <div class="spanHeightEighty" ></div>
+                   <div class="spanHeight"></div> 
+                    <input type="submit" value="Submit & Next Question">&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="button" value="Cancel & Clear Selection " onclick="cancelAndClear()"><br><br>
+               </div>
+           </div>
+       </div>
+   </form>
+   </div>
+   <footer id="mainFooter">
+      &#169;2016, Kalpana Tripathi.
+  </footer>
+</body>
+
+</html>

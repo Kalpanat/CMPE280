@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+    window.onload = function() {
+    //alert("Video quant --> "+localStorage.getItem("quant"));
+    //alert("Video English --> "+localStorage.getItem("english"));
+    //alert("Video video --> "+localStorage.getItem("video"));
+  };
+  function validateSelection() {
+    if(document.getElementById("aboutComments").value == '')
+    {
+      alert("Please add your comments!!!")
+      return false;
+    }
+  }
+  function reset_Selection() {
+    alert("skip");
+    window.location.href = "Summary.html";
+  }
+</script>
+</head>
+<body>
+<header>
+<hgroup>
+  <h2>Test Survey</h2>
+</hgroup>
+</header><br>
+<div id="rcorners3">
+<h3 align="center">Survey</h3>
+<h5 align="left">How Did you like the center</h5>
+<form action="Summary.html" onsubmit="return validateSelection()">
+     <table> 
+      <tr>
+         <td style="vertical-align:middle">Comments </td> 
+         <td><textarea rows="7" cols="70" id="aboutComments" style="overflow-y: scroll;"></textarea></td>
+      </tr>
+    </table><br>
+    <h5 align="left">Select Text Area Location</h5>
+      <label> City:
+        <input type="text" name="city" list="citylist"/>
+        <datalist id="citylist">
+        <option value="San Jose">
+        <option value="San Francisco">
+        <option value="Mountain View">
+        <option value="Palo Alto">
+        </datalist>
+      </label>&nbsp;&nbsp;&nbsp;
+      <label> Room Number#:
+        <input type="text" name="room" list="roomlist"/>
+        <datalist id="roomlist">
+        <option value="Room 337">
+        <option value="Room 210">
+        <option value="Room 110">
+        <option value="Room 410">
+        </datalist>
+       </label>
+      <br><br>  <br><br>
+      <div align="center">
+    <input type="submit" value="Submit & Next Question">&nbsp;&nbsp;&nbsp;&nbsp; 
+    <input type="button" value="Cancel & Clear Selection " onclick="reset_Selection()"><br><br>
+    </div>
+</form>
+</div>
+<footer id="mainFooter">
+  &#169;2016, Kalpana Tripathi.
+</footer>
+</body>
+</html>

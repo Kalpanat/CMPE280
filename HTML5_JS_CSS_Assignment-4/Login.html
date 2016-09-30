@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+function validateForm() {
+    var x = document.forms["login"]["username"].value;
+    var y = document.forms["login"]["password"].value;
+    if (x == null || x == "" || y == null || y == "") {
+        alert("Username or password must be filled out");
+        return false;
+    }
+    else if (x == 'test' && y == 'test') {
+    }
+    else {
+        alert("Please enter correct username and password!!!");
+        return false;
+    }
+}
+</script>
+</head>
+<body>
+<header>
+<hgroup>
+  <h2>Aptitude Test</h2>
+</hgroup>
+</header><br><br><br><br>
+<div id="rcorners2">
+<h3 align="center">User Login</h3>
+<form name="login" action="math.html" align="center" onsubmit="return validateForm()">
+	Username: <input type="text" name="username" value=""><br><br>
+	Password: <input type="text" name="password" value=""><br><br>
+	<a href="#">Create Account/Forgot</a>&nbsp;&nbsp;<input type="submit" value="Submit" ><br>
+</form>
+</div><br><br><br><br><br><br><br><br><br><br><br>
+<footer id="mainFooter">
+  &#169;2016, Kalpana Tripathi.
+</footer>
+</body>
+</html>

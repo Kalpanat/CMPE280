@@ -1,0 +1,62 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+      window.onload = function() {
+        //alert("Video quant --> "+localStorage.getItem("quant"));
+        //alert("Video English --> "+localStorage.getItem("english"));
+        //alert("Video video --> "+localStorage.getItem("video"));
+      };
+
+      function populate(){
+        document.getElementById('quantQA').textContent=localStorage.getItem("quant");
+        document.getElementById('quantCA').textContent=localStorage.getItem("quant");
+        document.getElementById('engQA').textContent=localStorage.getItem("english");
+        document.getElementById('engCA').textContent=localStorage.getItem("english");
+        document.getElementById('audVidQA').textContent=localStorage.getItem("video");
+        document.getElementById('audVidCA').textContent=localStorage.getItem("video");
+        document.getElementById('scoreMaths').textContent=localStorage.getItem("quant")+000;
+        document.getElementById('scoreEnglish').textContent=localStorage.getItem("english")+000;
+        document.getElementById('scoreAudVid').textContent=localStorage.getItem("video")+000;
+      }
+    </script>
+
+  </head>
+  <body>
+    <header>
+      <hgroup>
+        <h2>Prometric Test</h2>
+      </hgroup>
+    </header>
+  <div id="rcorners6">
+  <h3 align="center">Score Card</h3>
+  <form action="Summary.html" >
+   <details onclick="populate()">
+    <summary> Quantative Section </summary>
+    <p><b>Number of Questions Answered:  <span id='quantQA'> </span> </b></p>
+    <p><b>Number of Correct Answers: <span id='quantCA'> </span> </b></p>
+    <p><b>Score: <span id='scoreMaths'>00</span></b></p>  
+  </details>
+  <details onclick="populate()"> 
+    <summary> Reading Section </summary>
+    <p><b>Number of Questions Answered: <span id='engQA'> </span> </b></p> 
+    <p><b>Number of Correct Answers: <span id='engCA'> </span> </b></p>
+    <p><b>Score: <span id='scoreEnglish'>00</span></b></p>
+  </details>
+  <details onclick="populate()">
+    <summary>Audio/Video Section </summary>
+    <p><b>Number of Questions Answered: <span id='audVidQA'> </span> </b></p>
+    <p><b>Number of Correct Answers: <span id='audVidCA'> </span> </b></p>
+    <p><b>Score: <span id='scoreAudVid'>00</span></b></p>
+  </details>
+  <h4 align="center">Thank You!!!<br>
+    <input align="center" type="submit" value="Finish">
+  </h4>
+</form>
+</div>
+<footer id="mainFooter">
+  &#169;2016, Kalpana Tripathi.
+</footer>
+</body>
+</html>
