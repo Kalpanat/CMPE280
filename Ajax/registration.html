@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style type="text/css">
+         body {
+         background:#edf1f4;
+         font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans serif;
+         font-size:14px;
+         color:#444;
+         }
+         #rcorners2 {
+         margin: auto;
+         align-content: center;
+         text-align: center;
+         border-radius: 25px;
+         border: 2px solid black;
+         padding: 20px;
+         width: 700px;
+         height: 390px;
+         }  
+         input, select{
+         box-sizing: border-box;
+         -moz-box-sizing: border-box;
+         -webkit-box-sizing: border-box;
+         }
+         label {
+         display: inline-block;
+         width: 240px;
+         text-align: right;
+         padding-bottom: 5px;
+         }â€‹
+         #pswd_info h4 {
+         margin:0 0 10px 0;
+         padding:0;
+         font-weight:normal;
+         }
+         #pswd_info::before {
+         content: "\25B2";
+         position:absolute;
+         top:-12px;
+         left:45%;
+         font-size:14px;
+         line-height:14px;
+         color:#ddd;
+         text-shadow:none;
+         display:block;
+         }
+         #pswd_info {
+         display:none;
+         }
+         .invalid {
+         padding-left:0px;
+         line-height:20px;
+         color:#ec3f41;
+         }
+         .valid {
+         content: "\2705";
+         padding-left:22px;
+         line-height:24px;
+         color:#3a7d34;
+         }
+         .button {
+         background-color: #008CBA; 
+         border: none;
+         color: white;
+         padding: 5px 10px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 10px;
+         }
+
+         .message {
+            text-align: center;
+            color:#ec3f41;
+            font-size:17px;
+        }
+      </style>
+      <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function() {
+            $('input[type=password]').keyup(function() {
+           // keyup event code here
+               });
+            $('input[type=password]').focus(function() {
+           // focus code here
+               });
+            $('input[type=password]').blur(function() {
+           // blur code here
+               });
+            $('input[type=password]').keyup(function() {
+               var pswd = $(this).val();
+               if ( pswd.length < 8 ) {
+                   $('#length').removeClass('valid').addClass('invalid');
+               } else {
+                   $('#length').removeClass('invalid').addClass('valid');
+               }
+         
+           //validate letter
+           if ( pswd.match(/[A-z]/) ) {
+               $('#letter').removeClass('invalid').addClass('valid');
+           } else {
+               $('#letter').removeClass('valid').addClass('invalid');
+           }
+         
+           //validate capital letter
+           if ( pswd.match(/[A-Z]/) ) {
+               $('#capital').removeClass('invalid').addClass('valid');
+           } else {
+               $('#capital').removeClass('valid').addClass('invalid');
+           }
+         
+           //validate number
+           if ( pswd.match(/\d/) ) {
+               $('#number').removeClass('invalid').addClass('valid');
+           } else {
+               $('#number').removeClass('valid').addClass('invalid');
+           }
+           if (!pswd.match(document.getElementById(userid)) ) {
+               $('#userval').removeClass('invalid').addClass('valid');
+           } else {
+               $('#userval').removeClass('valid').addClass('invalid');
+           }
+         
+               // keyup code here
+           }).focus(function() {
+               // focus code here
+           }).blur(function() {
+               // blur code here
+           });
+         
+           $('input[type=password]').keyup(function() {
+               // keyup code here
+           }).focus(function() {
+               $('#pswd_info').show();
+           }).blur(function() {
+               $('#pswd_info').hide();
+           });
+           });
+         
+         function strengthMeter() {
+         var $ = function(x) {return(document.getElementById(x));}
+         var password = $("pswd").value;
+         var numEx = /\d/;
+         var lcEx = /[a-z]/;
+         var ucEx = /[A-Z]/;
+         var symbols = ['/', '@', '#', '%', '&', '.', '!', '*', '+', '?', '|','(', ')', '[', ']', '{', '}', '\\'];
+         var meterMult = 0;
+         
+         for (var k = 0; k < password.length; k++) {
+           var pchar = password.charAt(k);
+           if(numEx.test(pchar)){
+               meterMult += 0.75;
+           }
+           if(ucEx.test(pchar)){
+               meterMult += 1;
+           }
+           if(lcEx.test(pchar)){
+               meterMult += 0.25;
+           }
+         }
+         
+         for (var i = 0; i < symbols.length; i++) {
+           if(password.indexOf(symbols[i]) >= 0) {
+               meterMult += 1;
+           }
+         }
+         
+         // assume that 100% is a meterMult of 15
+         var fullStrength = 15;
+         $("meter").style.width = ((Math.min(fullStrength, meterMult)/fullStrength )*100) + "%";
+         
+         if(meterMult >= 12) {
+           $("strength").innerHTML = "Very Strong";
+         }
+         else if(meterMult >= 10) {
+           $("strength").innerHTML = "Strong";
+         }
+         else if(password.length >= 8) {
+           $("strength").innerHTML = "Medium";
+         }
+         else {
+           $("strength").innerHTML = "Weak";
+         }
+         }
+         
+         function validateSelection() {
+         var password = document.getElementById('pswd').value;
+         var verifypassword = document.getElementById('verifypassword').value;
+         
+         if (password != verifypassword){
+          alert("Passwords do not match!");
+           return false;
+         }
+         
+         var inmail = document.getElementById('inmail').value;
+         var verifyemail = document.getElementById('verifyemail').value;
+         
+         if (inmail != verifyemail){
+          alert("Emails do not match!");
+           return false;
+         }
+
+         localStorage.setItem("userid", document.getElementById("userid").value);
+         localStorage.setItem("password", document.getElementById("pswd").value);
+         localStorage.setItem("verifypassword", document.getElementById("verifypassword").value);
+         localStorage.setItem("Email", document.getElementById("inmail").value);
+         localStorage.setItem("verifyEmail", document.getElementById("verifyemail").value);
+         localStorage.setItem("Security_ans1", document.getElementById("ans1").value);
+         localStorage.setItem("Security_ans2", document.getElementById("ans2").value);
+         localStorage.setItem("Mobile_Number", document.getElementById("telephone").value);
+         localStorage.setItem("Address", document.getElementById("address").value);
+         localStorage.setItem("Extra_info", document.getElementById("extra_info").value);
+          
+         var e1 = document.getElementById("ques1");
+         var strQues1 = e1.options[e1.selectedIndex].text;
+
+         var e2 = document.getElementById("ques2");
+         var strQues2 = e2.options[e2.selectedIndex].text;
+
+          var httpRequest = new XMLHttpRequest();
+          httpRequest.open("POST","/process", true);
+          httpRequest.onreadystatechange=function(){
+                  if (httpRequest.readyState==4 && httpRequest.status==200){
+                    document.getElementById("myForm").reset();
+                    document.getElementById("success_para").innerHTML = httpRequest.responseText;
+                    strengthMeter();
+                }
+          }
+          var data = JSON.stringify({"userid":document.getElementById('userid').value, "password":document.getElementById('pswd').value, "email":document.getElementById('inmail').value, "ques1": strQues1, "ans1":document.getElementById('ans1').value, "ques2": strQues2, "ans2":document.getElementById('ans2').value, "mobile":document.getElementById('telephone').value, "address":document.getElementById('address').value, "extra_info":document.getElementById('extra_info').value });
+
+          httpRequest.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+          httpRequest.send(data);
+          
+          return false;
+         }
+         
+         
+         function clearFunction() {
+            document.getElementById("myForm").reset();
+         }  
+         
+      </script>
+   </head>
+   <body>
+      <header>
+         <hgroup>
+            <h3>Registration</h3>
+         </hgroup>
+      </header>
+      <div class="message" id="success_para"></div>
+      <form id="myForm" name="login" align="center" onsubmit="return validateSelection()">
+         <div id="rcorners2">
+            <div class="block">
+               <label>UserId</label>
+               <input type="text" name="userid" id="userid" maxlength="20"  value="" required autofocus/>
+            </div>
+            <div class="block" id="container">
+               <label>Password</label>
+               <input id="pswd" type="password" maxlength="20" name="pswd" onkeyup="strengthMeter()" required/> 
+            </div>
+            <div id="pswd_info" style="position:absolute;
+               bottom:300px;
+               right:170px;
+               width:250px;
+               padding:15px;
+               background:#fefefe;
+               font-size:.875em;
+               border-radius:5px;
+               box-shadow:0 1px 3px #ccc;
+               border:1px solid #ddd;">
+               <h4>Password must meet the following requirements:</h4>
+               <ul>
+                  <li id="letter" class="invalid">At least <strong>one letter</strong></li>
+                  <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+                  <li id="number" class="invalid">At least <strong>one number</strong></li>
+                  <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+                  <li id="userval" class="invalid">Your password cannot be same as your <strong>userid</strong></li>
+               </ul>
+            </div>
+            <div class="block">
+               <label>Verify Password</label>
+               <input type="password" id="verifypassword" name="verifypassword" maxlength="20"  value="" required />
+            </div>
+            <div class="block">
+               <label>Email Address</label>
+               <input type="email" id="inmail" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="50" required placeholder="Enter your email"/>
+            </div>
+            <div class="block">
+               <label>Verify Email Address</label>
+               <input type="email" id="verifyemail" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="50" required placeholder="Enter your email" />
+            </div>
+            <div class="block">
+               <label>Security Question 1</label>
+               <select name="ques1" id="ques1" required>
+                  <option value="0" selected></option>
+                  <option value="1">Sum of 2 + 3=</option>
+                  <option value="2">Sum of 100 + 200 =</option>
+                  <option value="3">23 x 100 = </option>
+                  <option value="4">Capital of India?</option>
+                  <option value="5">Capital of USA?</option>
+               </select>
+            </div>
+            <div class="block">
+               <label>Security Answer 1</label>
+               <input type="text" id="ans1" name="ans1" maxlength="10" required placeholder="Security Answer 1" />
+            </div>
+            <div class="block">
+               <label>Security Question 2</label>
+               <select name="ques2" id="ques2" required>
+                  <option value="0" selected></option>
+                  <option value="1">Sum of 2 + 3=</option>
+                  <option value="2">Sum of 100 + 200 =</option>
+                  <option value="3">23 x 100 = </option>
+                  <option value="4">Capital of India?</option>
+                  <option value="5">Capital of USA?</option>
+               </select>
+            </div>
+            <div class="block">
+               <label>Security Answer 2</label>
+               <input type="text" id="ans2" name="ans2" maxlength="10" required placeholder="Security Answer 2"/>
+            </div>
+            <div class="block">
+               <label>Mobile</label>
+               <input type="number" id="telephone" pattern="[0-9]" maxlength="10" name="mobile" value="" placeholder="10 digit Mobile Number" required />
+            </div>
+            <div class="block">
+               <label>Address</label>
+               <textarea id="address" rows="2" cols="20" required></textarea>
+            </div>
+            <div class="block">
+               <label>Areas you might be interested, please mention one or more:</label>
+               <textarea id="extra_info" rows="2" cols="20"></textarea>
+            </div>
+            <br>
+            <div style="float:right;border-size:0px;width:390px">
+               <div id="meter" style="border-size:1px;border-style:solid;border-color:#2ECC71;
+                  float:center;background-color:#58D68D; width:3px;height:20px;">
+                  <span id="strength" style="">Weak</span>
+               </div>
+            </div>
+            <br><br><br>
+            <div class="block">
+               <input type="submit" class="button" value="Register"/>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <input type="button" class="button" onclick="clearFunction()" value="Reset form"/>
+            </div>
+         </div>
+      </form>
+      <br><br>
+      <footer id="mainFooter">
+         &#169;2016, Kalpana Tripathi.
+      </footer>
+   </body>
+</html>
