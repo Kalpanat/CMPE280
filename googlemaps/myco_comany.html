@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Custom Markers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
+
+    <script>
+      var map;
+      var infowindow;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: new google.maps.LatLng(37.542591, -121.993067),
+          mapTypeId: 'roadmap'
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        //Shapes: https://maps.google.com/mapfiles/kml/shapes/
+        var iconBase = 'http://maps.google.com/mapfiles/kml/paddle/';
+        var icons = {
+          distribution: {
+            name: 'Distribution Facility',
+            icon: iconBase + 'red-circle.png'
+          },
+          headquater: {
+            name: 'HeadQuarters',
+            icon: iconBase + 'wht-circle.png'
+          },
+          callcenter: {
+            name: 'Call Center',
+            icon: iconBase + 'blu-circle.png'
+          },
+          retail: {
+            name: 'RetailLocation',
+            icon: iconBase + 'grn-circle.png'
+          }
+        };
+
+        function addMarker(feature) {
+
+          var icon = new google.maps.MarkerImage(icons[feature.type].icon, null, null, new google.maps.Point(0, 64), new google.maps.Size(feature.size*5, 40));
+
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icon,
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent(feature.add+"<br> Revenue: $"+feature.revenue);
+              infowindow.open(map, this);
+            });
+
+        }
+
+        var features = [
+          {
+            position: new google.maps.LatLng(37.542571, -121.993037),
+            type: 'retail', add: "Fremont, CA 94538", revenue: 10000000, size: 8
+          }, {
+            position: new google.maps.LatLng(37.525400, -122.037764),
+            type: 'retail', add: "Newark, CA", revenue: 3000000, size:7
+          }, {
+            position: new google.maps.LatLng(37.587546, -122.066716),
+            type: 'retail', add: "4100-4198 Pleiades Pl,Union City, CA 94587", revenue: 120000000, size:12
+          }, {
+            position: new google.maps.LatLng(37.587546, -122.066716),
+            type: 'retail', add: "4100-4198 Pleiades Pl,Union City, CA 94587", revenue: 120000000, size:12
+          }, {
+            position: new google.maps.LatLng(37.660284, -122.089396),
+            type: 'retail', add: "Burbank,Hayward, CA", revenue: 5000000, size:7
+          }, {
+            position: new google.maps.LatLng(37.527798, -122.312989),
+            type: 'distribution', add: "Sugarloaf San Mateo, CA", revenue: 300000, size:6
+          }, {
+            position: new google.maps.LatLng(37.492686, -122.249346),
+            type: 'retail', add: "San Carlos, CA", revenue: 3002000, size:7
+          }, {
+            position: new google.maps.LatLng(37.007888, -122.067355),
+            type: 'retail', add: "Santa Cruz County CA", revenue: 88999090, size:9
+          }, {
+            position: new google.maps.LatLng(37.113164, -121.651485),
+            type: 'retail', add: "Santa Clara County CA", revenue: 88999090, size:9
+          }, {
+            position: new google.maps.LatLng(37.006852, -122.064148),
+            type: 'distribution', add: "Santa Cruz County CA", revenue: 1000000, size:7
+          }, {
+            position: new google.maps.LatLng(37.344717, -121.979666),
+            type: 'callcenter', add: "Santa Clara, CA", revenue: 1000000, size:7
+          }, {
+            position: new google.maps.LatLng(37.638625, -121.911430),
+            type: 'retail', add: "Pleasanton, CA", revenue: 1000000, size:7
+          }
+          , {
+            position: new google.maps.LatLng(37.753038, -122.423198),
+            type: 'headquater', add: "Mission District San Francisco, CA", revenue: 1000000, size:7
+          }, {
+            position: new google.maps.LatLng(37.594870, -122.473562),
+            type: 'retail', add: "Pacifica, CA", revenue: 50000, size:5
+          }, {
+            position: new google.maps.LatLng(36.995174, -121.602745),
+            type: 'retail', add: "Gilroy, CA", revenue: 50000, size:5
+          }
+        ];
+
+        for (var i = 0, feature; feature = features[i]; i++) {
+          addMarker(feature);
+        }
+
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+    </script>
+  </body>
+</html>
